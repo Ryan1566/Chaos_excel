@@ -1,0 +1,123 @@
+{
+    "sourceImagePath": "Assets/Art/PNG/GameWorld_Map/Map_tianxia_zhongyuan.png",
+    "imageWidth": 4096,
+    "imageHeight": 3138,
+    "mapId": 1,
+    "points": [
+        {
+            "kind": 1,
+            "type": 1,
+            "refId": 1001,
+            "x": 0.1953125,
+            "y": 0.8087953925132752,
+            "scale": 1.0,
+            "layer": 0,
+            "enable": true
+        },
+        {
+            "kind": 1,
+            "type": 1,
+            "refId": 1002,
+            "x": 0.511962890625,
+            "y": 0.609942615032196,
+            "scale": 1.0,
+            "layer": 0,
+            "enable": true
+        },
+        {
+            "kind": 2,
+            "type": 2,
+            "refId": 2001,
+            "x": 0.244873046875,
+            "y": 0.7801147103309631,
+            "scale": 0.800000011920929,
+            "layer": 1,
+            "enable": true
+        },
+        {
+            "kind": 1,
+            "type": 3,
+            "refId": 1003,
+            "x": 0.732421875,
+            "y": 0.36265137791633608,
+            "scale": 1.0,
+            "layer": 0,
+            "enable": true
+        },
+        {
+            "kind": 2,
+            "type": 2,
+            "refId": 2002,
+            "x": 0.3662109375,
+            "y": 0.20331421494483949,
+            "scale": 1.0,
+            "layer": 2,
+            "enable": true
+        }
+    ],
+    "factionVertices": [
+        {
+            "stage": 1,
+            "factionId": 1,
+            "regionId": 1,
+            "x": 0.2099609375,
+            "y": 0.6599745154380798,
+            "color": "#2F3A4F",
+            "enable": true
+        },
+        {
+            "stage": 1,
+            "factionId": 1,
+            "regionId": 1,
+            "x": 0.300048828125,
+            "y": 0.6599745154380798,
+            "color": "#2F3A4F",
+            "enable": true
+        },
+        {
+            "stage": 1,
+            "factionId": 1,
+            "regionId": 1,
+            "x": 0.300048828125,
+            "y": 0.5799872279167175,
+            "color": "#2F3A4F",
+            "enable": true
+        },
+        {
+            "stage": 1,
+            "factionId": 1,
+            "regionId": 1,
+            "x": 0.2099609375,
+            "y": 0.5799872279167175,
+            "color": "#2F3A4F",
+            "enable": true
+        },
+        {
+            "stage": 1,
+            "factionId": 2,
+            "regionId": 2,
+            "x": 0.6103515625,
+            "y": 0.6175908446311951,
+            "color": "#4A6FA5",
+            "enable": true
+        },
+        {
+            "stage": 1,
+            "factionId": 2,
+            "regionId": 2,
+            "x": 0.7080078125,
+            "y": 0.5538559556007385,
+            "color": "#4A6FA5",
+            "enable": true
+        },
+        {
+            "stage": 1,
+            "factionId": 2,
+            "regionId": 2,
+            "x": 0.634765625,
+            "y": 0.4582536518573761,
+            "color": "#4A6FA5",
+            "enable": true
+        }
+    ]
+}
