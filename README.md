@@ -1,33 +1,45 @@
 # Chaos_excel 配置表
 
-配置按小模块归纳。同一小模块的定义、映射、文案等放在同一本工作簿，用多个简短中文页签区分；不再用“村庄养成”“进程与通用”统装多个无关模块。
+正式配置按小模块归纳，同一模块的基础表、关联表和文案放在同一本工作簿的多个简短中文页签中。所有正式xlsx放在本目录根层，编辑器专用 `_worldmap_tool/` 单独保留。
 
-所有正式xlsx放在本目录根层；只有明确编辑器专用的 `_worldmap_tool/` 保留子目录。旧 `_archive_single_sheet` 的25本有效表已核对为重复内容，原根层与归档表的完整备份放在项目外，不作为另一套可编辑配置继续保留。原归档测试表另有一张完全空白页，没有独有数据。
+## 命名规则（2026-11-01最终确认）
 
-| 工作簿 | 页签顺序（从1开始） |
+- Excel：`英文表名_中文说明.xlsx`。第一个下划线前为英文表名，后面中文只供策划识别。
+- B1：该页的英文基础名，例如Test、Building、OfficeTask；不填写表名前缀或自动模式后缀。
+- JSON：`英文表名_B1基础名.json`。
+- Config脚本：`英文表名_B1基础名Config.cs`；类名与脚本名一致。
+- Data模式：`英文表名_B1基础名.record`、`英文表名_B1基础名Data.cs`。
+- 例：`TestTable_测试表.xlsx`，B1=`Test`，输出 `TestTable_Test.json`、`TestTable_TestConfig.cs`，声明 `public class TestTable_TestConfig`。
+
+导出文件名与类名只允许ASCII英文标识符，中文页签名仅作显示，不参与生成。不同英文表名前缀可使用相同B1；同英文前缀、相同B1即使中文说明不同也会冲突并整批拒绝。模式只由B2或导出请求决定，不根据B1末尾文字猜测。
+
+## 当前工作簿
+
+| 工作簿 | 页签及B1基础名（按位置顺序） |
 | --- | --- |
-| 建筑表.xlsx | 1 建筑 |
-| 效果表.xlsx | 1 通用效果 |
-| 局外技能树表.xlsx | 1 节点、2 效果映射 |
-| 村庄表.xlsx | 1 场景、2 文案 |
-| 物品表.xlsx | 1 物品、2 掉落 |
-| 门客表.xlsx | 1 门客 |
-| 地图生成表.xlsx | 1 地图预设、2 预设分层、3 生成参数、4 地形主题、5 结构区块、6 区块接口、7 放置插槽 |
-| 局内内容表.xlsx | 1 交互物、2 角色行为 |
-| 读条表.xlsx | 1 轮播设置、2 地图读条 |
-| 时代进度表.xlsx | 1 时代、2 深度 |
-| 办事任务表.xlsx | 1 任务、2 选项、3 时代门槛 |
-| 剧情事件表.xlsx | 1 事件、2 选项 |
-| 测试表.xlsx | 1 测试 |
-| 世界观地图表.xlsx | 1 地点、2 疆域 |
+| BuildingTable_建筑表.xlsx | 1 建筑（Building） |
+| EffectTable_效果表.xlsx | 1 通用效果（Effect） |
+| MetaSkillTreeTable_局外技能树表.xlsx | 1 节点（FamilyTree）、2 效果映射（FamilyTreeEffect） |
+| VillageTable_村庄表.xlsx | 1 场景（VillageScene）、2 文案（VillageText） |
+| ItemTable_物品表.xlsx | 1 物品（Item）、2 掉落（Drop） |
+| RetainerTable_门客表.xlsx | 1 门客（Retainer） |
+| RunMapTable_地图生成表.xlsx | 1 地图预设（MapPreset）、2 预设分层（PresetLayer）、3 生成参数（MapGeneration）、4 地形主题（MapBiome）、5 结构区块（MapChunk）、6 区块接口（ChunkSocket）、7 放置插槽（ChunkSlot） |
+| RunContentTable_局内内容表.xlsx | 1 交互物（RunInteraction）、2 角色行为（RunBehavior） |
+| LoadingTable_读条表.xlsx | 1 轮播设置（Loading）、2 地图读条（MapLoading） |
+| ProgressTable_时代进度表.xlsx | 1 时代（Era）、2 深度（Depth） |
+| OfficeTaskTable_办事任务表.xlsx | 1 任务（OfficeTask）、2 选项（OfficeTaskOption）、3 时代门槛（OfficeEraGate） |
+| EventTable_剧情事件表.xlsx | 1 事件（Event）、2 选项（EventOption） |
+| TestTable_测试表.xlsx | 1 测试（Test） |
+| WorldMapTable_世界观地图表.xlsx | 1 地点（WorldMap）、2 疆域（WorldFaction） |
 
-“效果表”提供建筑、物品和技能树等共用的效果定义；“局外技能树表”的效果映射页只管理节点与效果的关联，不复制共用效果。
+共14本、30页；31张运行时配置包括额外派生的势力名称表。该派生数据输出 `WorldMapTable_WorldFactionLabel.json`，Config类为WorldMapTable_WorldFactionLabelConfig，仍由世界观工具的历史名录生成，不手写或改名编辑器作者JSON。
 
-每页B1保留稳定英文类名或旧基名（Building补为BuildingConfig，完整类名不重复加后缀），B2填写IsConfig/IsData。第3行备注、第4行字段、第5行端标记、第6行类型、第7行起数据保持原协议。中文页签是展示名称，不承担类名/文件名识别职责。
+## 导表与读取
 
-沿用Unity原ExcelTool菜单批量导表。JSON按“完整工作簿名_完整类名.json”生成，例如 `建筑表_BuildingConfig.json`、`办事任务表_OfficeTaskConfig.json`。运行时通过ConfigTableIndex按稳定类型名加载；共31项，含30张页签与派生势力名称表。不要手改生成JSON/C#。
+B2仍填写IsConfig/IsData；第3行备注、第4行英文属性、第5行端标记、第6行类型、第7行起数据。沿用Unity的ExcelTool菜单。中文注释保留，字段与配置数值不随本次命名迁移变动。
 
-编辑器统一通过 `ExcelWorksheetAccess.GetByIndex(workbook, oneBasedIndex)` 读取，1表示第一张；需要显式名称查找时才用 `GetByName(workbook, name)`，名称精确匹配，找不到不回退第一张。批量导表遍历所有页的位置，B1决定类型，因此只改中文页签名不会改变业务配置。世界观绘图工具使用固定位置1地点、2疆域，单独导出一类时保留另一页和额外页，别交换这两个位置。
+程序通过ConfigTableIndex按完整Config类名解析JSON路径，例如TestTable_TestConfig映射到Data/Json/Runtime/TestTable_Test；同步/异步一致。不得直接用类名拼JSON路径。输出先整批校验再发布，有变化才写文件，失败回滚并清理本批暂存。
 
-任务字段与规则见[系统30](../../Chaos_Story/Story/02_系统策划/30_办事单位四类任务与配置管线.md)，本次组织规范及验证见[配置归纳](../../QA/ConfigModules/README.md)。小模块重组不调整任何配置数值、任务规则或世界观顶点。
+编辑器默认使用ExcelWorksheetAccess.GetByIndex，索引从1开始；GetByName保留为精确名称扩展接口。世界观工具共用一本WorldMapTable，固定1地点、2疆域，单独导出一页会保留另一页及额外页。
 
+本次名称迁移与验收见[ConfigEnglish](../../QA/ConfigEnglish/README.md)；上次小模块归纳的历史证据见[ConfigModules](../../QA/ConfigModules/README.md)。不要运行旧批次迁移工具来恢复已退役布局，不手改生成JSON或Config脚本。
