@@ -1,20 +1,33 @@
-# Chaos_excel
+# Chaos_excel 配置表
 
-当前顶层工作簿按业务合并为6本，原25本单页工作簿连同Unity元数据保留在 `_archive_single_sheet/`，不再对归档目录执行导表。
+配置按小模块归纳。同一小模块的定义、映射、文案等放在同一本工作簿，用多个简短中文页签区分；不再用“村庄养成”“进程与通用”统装多个无关模块。
 
-| 工作簿 | 页签 |
+所有正式xlsx放在本目录根层；只有明确编辑器专用的 `_worldmap_tool/` 保留子目录。旧 `_archive_single_sheet` 的25本有效表已核对为重复内容，原根层与归档表的完整备份放在项目外，不作为另一套可编辑配置继续保留。原归档测试表另有一张完全空白页，没有独有数据。
+
+| 工作簿 | 页签顺序（从1开始） |
 | --- | --- |
-| 村庄养成.xlsx | Building、Effect、FamilyTree、FamilyTreeEffect、Item、Retainer、VillageScene、VillageText |
-| 局内地图.xlsx | ChunkSlot、ChunkSocket、MapBiome、MapChunk、MapGeneration、MapLoading、MapPreset、PresetLayer、RunBehavior、RunInteraction、Drop |
-| 进程与通用.xlsx | Era、Depth、LoadingTable、TestTable |
-| 局外事务.xlsx | Event、EventOption、OfficeTaskConfig、OfficeTaskOptionConfig、OfficeEraGateConfig |
-| WorldMap_世界观地图表.xlsx | 世界观绘图工具源表，保留原工具工作方式 |
-| WorldFaction_势力范围配置表.xlsx | 势力绘图工具源表，保留原工具工作方式 |
+| 建筑表.xlsx | 1 建筑 |
+| 效果表.xlsx | 1 通用效果 |
+| 局外技能树表.xlsx | 1 节点、2 效果映射 |
+| 村庄表.xlsx | 1 场景、2 文案 |
+| 物品表.xlsx | 1 物品、2 掉落 |
+| 门客表.xlsx | 1 门客 |
+| 地图生成表.xlsx | 1 地图预设、2 预设分层、3 生成参数、4 地形主题、5 结构区块、6 区块接口、7 放置插槽 |
+| 局内内容表.xlsx | 1 交互物、2 角色行为 |
+| 读条表.xlsx | 1 轮播设置、2 地图读条 |
+| 时代进度表.xlsx | 1 时代、2 深度 |
+| 办事任务表.xlsx | 1 任务、2 选项、3 时代门槛 |
+| 剧情事件表.xlsx | 1 事件、2 选项 |
+| 测试表.xlsx | 1 测试 |
+| 世界观地图表.xlsx | 1 地点、2 疆域 |
 
-各页B1填写实际类名或旧基名（Building会补为BuildingConfig，OfficeTaskConfig不重复加后缀），B2填写IsConfig或IsData。第3行备注、第4行字段、第5行端标记、第6行类型、第7行起为数据。空页和说明页可跳过，启用页的非法数据会定位报错。
+“效果表”提供建筑、物品和技能树等共用的效果定义；“局外技能树表”的效果映射页只管理节点与效果的关联，不复制共用效果。
 
-沿用Unity原ExcelTool菜单导表；每页独立输出，JSON规范为“完整工作簿基名_完整类名.json”，例如 `局外事务_OfficeTaskConfig.json`。生成C#类名保持BuildingConfig等既有类型。运行时按ConfigTableIndex.json索引加载类型，不手写旧物理JSON路径。索引现有31项，含30页导出与1张派生势力名称表；该名称表仍由原绘图工具生成。
+每页B1保留稳定英文类名或旧基名（Building补为BuildingConfig，完整类名不重复加后缀），B2填写IsConfig/IsData。第3行备注、第4行字段、第5行端标记、第6行类型、第7行起数据保持原协议。中文页签是展示名称，不承担类名/文件名识别职责。
 
-局外任务字段、资源码、倒计时与时代门槛口径见[系统30](../../Chaos_Story/Story/02_系统策划/30_办事单位四类任务与配置管线.md)。OfficeEraGateConfig.Era是当前时代（1约束1→2），样例门槛及尚未接战斗的遭袭样例默认关闭。配置中的任务为首轮可替换示例，不代表真实历史法令。
+沿用Unity原ExcelTool菜单批量导表。JSON按“完整工作簿名_完整类名.json”生成，例如 `建筑表_BuildingConfig.json`、`办事任务表_OfficeTaskConfig.json`。运行时通过ConfigTableIndex按稳定类型名加载；共31项，含30张页签与派生势力名称表。不要手改生成JSON/C#。
 
-导出先验证整批，再发布JSON、C#和索引；中途写入失败回滚。旧28张JSON数据已逐表核对不变，旧资产重命名保留GUID。不要再次导入归档旧表来制造同类型重复，也不要手改生成JSON/C#。
+编辑器统一通过 `ExcelWorksheetAccess.GetByIndex(workbook, oneBasedIndex)` 读取，1表示第一张；需要显式名称查找时才用 `GetByName(workbook, name)`，名称精确匹配，找不到不回退第一张。批量导表遍历所有页的位置，B1决定类型，因此只改中文页签名不会改变业务配置。世界观绘图工具使用固定位置1地点、2疆域，单独导出一类时保留另一页和额外页，别交换这两个位置。
+
+任务字段与规则见[系统30](../../Chaos_Story/Story/02_系统策划/30_办事单位四类任务与配置管线.md)，本次组织规范及验证见[配置归纳](../../QA/ConfigModules/README.md)。小模块重组不调整任何配置数值、任务规则或世界观顶点。
+
