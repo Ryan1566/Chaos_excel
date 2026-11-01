@@ -19,7 +19,7 @@
 | --- | --- |
 | BuildingTable_建筑表.xlsx | 1 建筑（Building） |
 | EffectTable_效果表.xlsx | 1 通用效果（Effect） |
-| MetaSkillTreeTable_局外技能树表.xlsx | 1 节点（FamilyTree）、2 效果映射（FamilyTreeEffect） |
+| MetaSkillTreeTable_局外技能树表.xlsx | 1 节点（FamilyTree）、2 效果映射（FamilyTreeEffect）、3 板块（FamilyTreeBoard）、4 文案（FamilyTreeText） |
 | VillageTable_村庄表.xlsx | 1 场景（VillageScene）、2 文案（VillageText） |
 | ItemTable_物品表.xlsx | 1 物品（Item）、2 掉落（Drop） |
 | RetainerTable_门客表.xlsx | 1 门客（Retainer） |
@@ -32,7 +32,7 @@
 | TestTable_测试表.xlsx | 1 测试（Test） |
 | WorldMapTable_世界观地图表.xlsx | 1 地点（WorldMap）、2 疆域（WorldFaction） |
 
-共14本、30页；31张运行时配置包括额外派生的势力名称表。该派生数据输出 `WorldMapTable_WorldFactionLabel.json`，Config类为WorldMapTable_WorldFactionLabelConfig，仍由世界观工具的历史名录生成，不手写或改名编辑器作者JSON。
+共14本、32页；33张运行时配置包括额外派生的势力名称表。该派生数据输出 `WorldMapTable_WorldFactionLabel.json`，Config类为WorldMapTable_WorldFactionLabelConfig，仍由世界观工具的历史名录生成，不手写或改名编辑器作者JSON。
 
 ## 导表与读取
 
